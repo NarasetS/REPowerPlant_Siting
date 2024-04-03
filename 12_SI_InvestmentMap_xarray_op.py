@@ -84,7 +84,7 @@ print('rollingwindow_vspp_iew = ',rollingwindow_vspp_iew,' * ',rollingwindow_vsp
 ############################################## Coarsen #########################################################################################################################
 xr_final_SI = xr.open_dataset('Output\\xr_final_SI_all.nc')
 xr_final_SI = xr_final_SI.drop_vars('ADM1_EN')
-xr_final_SI = xr_final_SI.coarsen(lat = coarsenscale, lon= coarsenscale, boundary='pad').sum()
+xr_final_SI = xr_final_SI.coarsen(lat = coarsenscale, lon= coarsenscale, boundary='trim').sum()
 xr_final_SI['SI_Wind'] = xr_final_SI['SI_Wind'] / (coarsenscale**2)
 xr_final_SI['SI_Solar'] = xr_final_SI['SI_Solar'] / (coarsenscale**2)
 xr_final_SI['SI_Biomass'] = xr_final_SI['SI_Biomass'] / (coarsenscale**2)
@@ -330,60 +330,60 @@ VSPP_quota_msw_R4 =  0
 ######################## model #####################################################
 m = linopy.Model()
 ##############################################################################
-built_SPP_wind = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_SPP_wind')
-cap_SPP_wind = m.add_variables(upper=90,lower=0.00, coords=xr_ref.coords, name='cap_SPP_wind')
+built_SPP_wind = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_SPP_wind')
+cap_SPP_wind = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_SPP_wind')
 
-built_VSPP_wind = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_VSPP_wind')
-cap_VSPP_wind = m.add_variables(upper=10,lower=0.00, coords=xr_ref.coords, name='cap_VSPP_wind')
+built_VSPP_wind = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_VSPP_wind')
+cap_VSPP_wind = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_VSPP_wind')
 ##############################################################################
-built_SPP_solar = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_SPP_solar')
-cap_SPP_solar = m.add_variables(upper=90,lower=0.00, coords=xr_ref.coords, name='cap_SPP_solar')
+built_SPP_solar = m.add_variables(integer=Truelower=0, coords=xr_ref.coords, name='built_SPP_solar')
+cap_SPP_solar = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_SPP_solar')
 
-built_VSPP_solar = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_VSPP_solar')
-cap_VSPP_solar = m.add_variables(upper=10,lower=0.00, coords=xr_ref.coords, name='cap_VSPP_solar')
+built_VSPP_solar = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_VSPP_solar')
+cap_VSPP_solar = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_VSPP_solar')
 ##############################################################################
-built_SPP_biomass = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_SPP_biomass')
-cap_SPP_biomass = m.add_variables(upper=90,lower=0.00, coords=xr_ref.coords, name='cap_SPP_biomass')
+built_SPP_biomass = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_SPP_biomass')
+cap_SPP_biomass = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_SPP_biomass')
 
-built_VSPP_biomass = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_VSPP_biomass')
-cap_VSPP_biomass = m.add_variables(upper=10,lower=0.00, coords=xr_ref.coords, name='cap_VSPP_biomass')
+built_VSPP_biomass = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_VSPP_biomass')
+cap_VSPP_biomass = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_VSPP_biomass')
 ##############################################################################
-built_SPP_bgec = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_SPP_bgec')
-cap_SPP_bgec = m.add_variables(upper=90,lower=0.00, coords=xr_ref.coords, name='cap_SPP_bgec')
+built_SPP_bgec = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_SPP_bgec')
+cap_SPP_bgec = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_SPP_bgec')
 
-built_VSPP_bgec = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_VSPP_bgec')
-cap_VSPP_bgec = m.add_variables(upper=10,lower=0.00, coords=xr_ref.coords, name='cap_VSPP_bgec')
+built_VSPP_bgec = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_VSPP_bgec')
+cap_VSPP_bgec = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_VSPP_bgec')
 ##############################################################################
 
-built_SPP_msw = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_SPP_msw')
-cap_SPP_msw = m.add_variables(upper=90,lower=0.00, coords=xr_ref.coords, name='cap_SPP_msw')
+built_SPP_msw = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_SPP_msw')
+cap_SPP_msw = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_SPP_msw')
 
-built_VSPP_msw = m.add_variables(integer=True,upper=1,lower=0, coords=xr_ref.coords, name='built_VSPP_msw')
-cap_VSPP_msw = m.add_variables(upper=10,lower=0.00, coords=xr_ref.coords, name='cap_VSPP_msw')
+built_VSPP_msw = m.add_variables(integer=True,lower=0, coords=xr_ref.coords, name='built_VSPP_msw')
+cap_VSPP_msw = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_VSPP_msw')
 ##############################################################################
 
 ############################################ Constraint Building Location Logic ##############################################################################
 constr_built_logic =  m.add_constraints(
 (
-    built_SPP_wind.rolling(lat = rollingwindow_spp_wind+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_wind+1,center=True,min_periods=1).sum()
+    built_SPP_wind.rolling(lat = rollingwindow_spp_wind,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_wind,center=True,min_periods=1).sum()
     +
-    built_VSPP_wind.rolling(lat = rollingwindow_vspp_wind+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_wind+1,center=True,min_periods=1).sum()
+    built_VSPP_wind.rolling(lat = rollingwindow_vspp_wind,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_wind,center=True,min_periods=1).sum()
     +
-    built_SPP_solar.rolling(lat = rollingwindow_spp_solar+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_solar+1,center=True,min_periods=1).sum()
+    built_SPP_solar.rolling(lat = rollingwindow_spp_solar,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_solar,center=True,min_periods=1).sum()
     +
-    built_VSPP_solar.rolling(lat = rollingwindow_vspp_solar+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_solar+1,center=True,min_periods=1).sum()
+    built_VSPP_solar.rolling(lat = rollingwindow_vspp_solar,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_solar,center=True,min_periods=1).sum()
     +
-    built_SPP_biomass.rolling(lat = rollingwindow_spp_biomass+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_biomass+1,center=True,min_periods=1).sum()
+    built_SPP_biomass.rolling(lat = rollingwindow_spp_biomass,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_biomass,center=True,min_periods=1).sum()
     +
-    built_VSPP_biomass.rolling(lat = rollingwindow_vspp_biomass+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_biomass+1,center=True,min_periods=1).sum()
+    built_VSPP_biomass.rolling(lat = rollingwindow_vspp_biomass,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_biomass,center=True,min_periods=1).sum()
     +
-    built_SPP_bgec.rolling(lat = rollingwindow_spp_bgec+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_bgec+1,center=True,min_periods=1).sum()
+    built_SPP_bgec.rolling(lat = rollingwindow_spp_bgec,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_bgec,center=True,min_periods=1).sum()
     +
-    built_VSPP_bgec.rolling(lat = rollingwindow_vspp_bgec+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_bgec+1,center=True,min_periods=1).sum()
+    built_VSPP_bgec.rolling(lat = rollingwindow_vspp_bgec,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_bgec,center=True,min_periods=1).sum()
     +
-    built_SPP_msw.rolling(lat = rollingwindow_spp_msw+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_msw+1,center=True,min_periods=1).sum()
+    built_SPP_msw.rolling(lat = rollingwindow_spp_msw,center=True,min_periods=1).sum().rolling(lon = rollingwindow_spp_msw,center=True,min_periods=1).sum()
     +
-    built_VSPP_msw.rolling(lat = rollingwindow_vspp_msw+1,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_msw+1,center=True,min_periods=1).sum()
+    built_VSPP_msw.rolling(lat = rollingwindow_vspp_msw,center=True,min_periods=1).sum().rolling(lon = rollingwindow_vspp_msw,center=True,min_periods=1).sum()
 )
     <= 1
     , name='constr_built_logic'
@@ -664,65 +664,65 @@ obj = (-1000) * (
     ( 
      xr_ref['SI_Wind'].rolling(lon = rollingwindow_spp_wind, lat = rollingwindow_spp_wind, min_periods=1,center=True).sum()
      * (cap_SPP_wind) 
-     / maxcapacityfor_spp
+     / (mwpergrid_wind * xr_ref['AVA_Wind'].rolling(lon = rollingwindow_spp_wind, lat = rollingwindow_spp_wind, min_periods=1,center=True).sum())
      )
     +
     ( 
      xr_ref['SI_Wind'].rolling(lon = rollingwindow_vspp_wind, lat = rollingwindow_vspp_wind, min_periods=1,center=True).sum()
      * (cap_VSPP_wind) 
-     / maxcapacityfor_vspp
+     / (mwpergrid_wind * xr_ref['AVA_Wind'].rolling(lon = rollingwindow_vspp_wind, lat = rollingwindow_vspp_wind, min_periods=1,center=True).sum())
      )
     ########################################################################
     +
     ( 
      xr_ref['SI_Solar'].rolling(lon = rollingwindow_spp_solar, lat = rollingwindow_spp_solar, min_periods=1,center=True).sum()
      * (cap_SPP_solar) 
-     / maxcapacityfor_spp
+     / (mwpergrid_solar * xr_ref['AVA_Solar'].rolling(lon = rollingwindow_spp_solar, lat = rollingwindow_spp_solar, min_periods=1,center=True).sum())
      )
     +
     ( 
      xr_ref['SI_Solar'].rolling(lon = rollingwindow_vspp_solar, lat = rollingwindow_vspp_solar, min_periods=1,center=True).sum()
      * (cap_VSPP_solar) 
-     / maxcapacityfor_vspp
+     / (mwpergrid_solar * xr_ref['AVA_Solar'].rolling(lon = rollingwindow_vspp_solar, lat = rollingwindow_vspp_solar, min_periods=1,center=True).sum())
      )
     ########################################################################
     +
     ( 
      xr_ref['SI_Biomass'].rolling(lon = rollingwindow_spp_biomass, lat = rollingwindow_spp_biomass, min_periods=1,center=True).sum()
      * (cap_SPP_biomass) 
-     / maxcapacityfor_spp
+     / (xr_ref['A_Biomass'].rolling(lon = rollingwindow_spp_biomass, lat = rollingwindow_spp_biomass, min_periods=1,center=True).sum())
      )
     +
     ( 
-     xr_ref['SI_Biomass'].rolling(lon = rollingwindow_spp_biomass, lat = rollingwindow_spp_biomass, min_periods=1,center=True).sum()
-     * (cap_SPP_biomass) 
-     / maxcapacityfor_vspp
+     xr_ref['SI_Biomass'].rolling(lon = rollingwindow_vspp_biomass, lat = rollingwindow_vspp_biomass, min_periods=1,center=True).sum()
+     * (cap_VSPP_biomass) 
+     / (xr_ref['A_Biomass'].rolling(lon = rollingwindow_vspp_biomass, lat = rollingwindow_vspp_biomass, min_periods=1,center=True).sum())
      )
     ########################################################################
     +
     ( 
      xr_ref['SI_BGEC'].rolling(lon = rollingwindow_spp_bgec, lat = rollingwindow_spp_bgec, min_periods=1,center=True).sum()
      * (cap_SPP_bgec) 
-     / maxcapacityfor_spp
+     / (xr_ref['A_BGEC'].rolling(lon = rollingwindow_spp_bgec, lat = rollingwindow_spp_bgec, min_periods=1,center=True).sum())
      )
     +
     ( 
-     xr_ref['SI_BGEC'].rolling(lon = rollingwindow_spp_bgec, lat = rollingwindow_spp_bgec, min_periods=1,center=True).sum()
-     * (cap_SPP_bgec) 
-     / maxcapacityfor_vspp
+     xr_ref['SI_BGEC'].rolling(lon = rollingwindow_vspp_bgec, lat = rollingwindow_vspp_bgec, min_periods=1,center=True).sum()
+     * (cap_VSPP_bgec) 
+     / (xr_ref['A_BGEC'].rolling(lon = rollingwindow_vspp_bgec, lat = rollingwindow_vspp_bgec, min_periods=1,center=True).sum())
      )
     ########################################################################
     +
     ( 
      xr_ref['SI_MSW'].rolling(lon = rollingwindow_spp_msw, lat = rollingwindow_spp_msw, min_periods=1,center=True).sum()
      * (cap_SPP_msw) 
-     / maxcapacityfor_spp
+     / (xr_ref['A_MSW'].rolling(lon = rollingwindow_spp_msw, lat = rollingwindow_spp_msw, min_periods=1,center=True).sum())
      )
     +
     ( 
-     xr_ref['SI_MSW'].rolling(lon = rollingwindow_spp_msw, lat = rollingwindow_spp_msw, min_periods=1,center=True).sum()
-     * (cap_SPP_msw) 
-     / maxcapacityfor_vspp
+     xr_ref['SI_MSW'].rolling(lon = rollingwindow_vspp_msw, lat = rollingwindow_vspp_msw, min_periods=1,center=True).sum()
+     * (cap_VSPP_msw) 
+     / (xr_ref['A_MSW'].rolling(lon = rollingwindow_vspp_msw, lat = rollingwindow_vspp_msw, min_periods=1,center=True).sum())
      )
 )   
 
