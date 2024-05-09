@@ -137,36 +137,20 @@ print('mwpergrid_solar = ',mwpergrid_solar)
 # ####### no ############################################################
 
 ######## yes ############################################################
-quota_wind_total =  6335
+quota_wind_total =  6345
 quota_wind_R0 = 0
 quota_wind_R1 = 0
-quota_wind_R2 = 6075
+quota_wind_R2 = 6085
 quota_wind_R3 =  260
 quota_wind_R4 =  0
 
-quota_solar_total =  24182
-quota_solar_R0 =  16
-quota_solar_R1 =  4133
-quota_solar_R2 =  4989
-quota_solar_R3 = 8825
-quota_solar_R4 =  6219
-######## yes ############################################################'
-
-# ######## yes ############################################################
-# quota_wind_total =  0
-# quota_wind_R0 = 0
-# quota_wind_R1 = 0
-# quota_wind_R2 = 0
-# quota_wind_R3 =  0
-# quota_wind_R4 =  0
-
-# quota_solar_total =  0
-# quota_solar_R0 =  0
-# quota_solar_R1 =  0
-# quota_solar_R2 =  0
-# quota_solar_R3 = 0
-# quota_solar_R4 =  0
-# ######## yes ############################################################'
+quota_solar_total =  23638
+quota_solar_R0 =  23
+quota_solar_R1 =  3873
+quota_solar_R2 =  5852
+quota_solar_R3 = 8700
+quota_solar_R4 =  5189
+######## yes ############################################################
 
 ######################## model #####################################################
 m = linopy.Model()
