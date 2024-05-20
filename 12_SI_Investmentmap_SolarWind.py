@@ -8,7 +8,7 @@ from shapely import wkt
 import numpy as np
 
 ###################### Config ################################################################################################
-coarsenscale = 15
+coarsenscale = 5
 lccs_resolution = 300 * coarsenscale #m
 areapergrid = (lccs_resolution/1000) ** 2 ## km2
 scenario_SI = 0 ## Include area where SI >= scenario_SI
@@ -144,21 +144,21 @@ quota_wind_R2 = 6085
 quota_wind_R3 =  260
 quota_wind_R4 =  0
 
-quota_solar_total =  23638
-quota_solar_R0 =  23
-quota_solar_R1 =  3873
-quota_solar_R2 =  5852
-quota_solar_R3 = 8700
-quota_solar_R4 =  5189
+quota_solar_total =  19297.94
+quota_solar_R0 =  23.33
+quota_solar_R1 =  1423.36
+quota_solar_R2 =  5942.28
+quota_solar_R3 = 5820.02
+quota_solar_R4 =  6088.94
 ######## yes ############################################################
 
 ######################## model #####################################################
 m = linopy.Model()
 
-built_wind = m.add_variables(integer=True,upper = 1,lower =0, coords=xr_ref.coords, name='built_wind')
+built_wind = m.add_variables(binary=True, coords=xr_ref.coords, name='built_wind')
 cap_wind = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_wind')
 
-built_solar = m.add_variables(integer=True,upper = 1,lower =0, coords=xr_ref.coords, name='built_solar')
+built_solar = m.add_variables(binary=True, coords=xr_ref.coords, name='built_solar')
 cap_solar = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_solar')
 
 
