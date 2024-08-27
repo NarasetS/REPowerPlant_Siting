@@ -8,7 +8,7 @@ from shapely import wkt
 import numpy as np
 
 ###################### Config ################################################################################################
-coarsenscale = 10
+coarsenscale = 12
 lccs_resolution = 300 * coarsenscale #m
 areapergrid = (lccs_resolution/1000) ** 2 ## km2
 scenario_SI = 0  ## Include area where SI >= scenario_SI
@@ -206,42 +206,79 @@ quota_bgec_R4 =  0
 # quota_msw_R4 =  0
 ######## no ############################################################
 
-# ######## yes ############################################################
-quota_wind_total =  6345
+# # ######## yes ############################################################
+# quota_wind_total =  6345
+# quota_wind_R0 = 0
+# quota_wind_R1 = 0
+# quota_wind_R2 = 6085
+# quota_wind_R3 =  260
+# quota_wind_R4 =  0
+
+# quota_solar_total =  19297.94
+# quota_solar_R0 =  23.33
+# quota_solar_R1 =  1423.36
+# quota_solar_R2 =  5942.28
+# quota_solar_R3 = 5820.02
+# quota_solar_R4 =  6088.94
+
+# quota_bgec_total = 968
+# # quota_bgec_R0 = 0
+# # quota_bgec_R1 =  218
+# # quota_bgec_R2 =  420
+# # quota_bgec_R3 =   68
+# # quota_bgec_R4 =  262
+
+# quota_biomass_total = 695
+# quota_biomass_R0 = 0
+# quota_biomass_R1 = 145
+# quota_biomass_R2 =  260
+# quota_biomass_R3 =   60
+# quota_biomass_R4 =  230
+
+# quota_msw_total = 814
+# quota_msw_R0 = 195
+# quota_msw_R1 =  190
+# quota_msw_R2 =  234
+# quota_msw_R3 =  104
+# quota_msw_R4 = 91
+# ######## yes ############################################################'
+
+# ######## test ############################################################
+quota_wind_total =  0
 quota_wind_R0 = 0
 quota_wind_R1 = 0
-quota_wind_R2 = 6085
-quota_wind_R3 =  260
+quota_wind_R2 = 0
+quota_wind_R3 =  0
 quota_wind_R4 =  0
 
-quota_solar_total =  19297.94
-quota_solar_R0 =  23.33
-quota_solar_R1 =  1423.36
-quota_solar_R2 =  5942.28
-quota_solar_R3 = 5820.02
-quota_solar_R4 =  6088.94
+quota_solar_total =  10276
+quota_solar_R0 =  0
+quota_solar_R1 =  0
+quota_solar_R2 =  0
+quota_solar_R3 = 0
+quota_solar_R4 =  0
 
-quota_bgec_total = 968
+quota_bgec_total = 0
 # quota_bgec_R0 = 0
 # quota_bgec_R1 =  218
 # quota_bgec_R2 =  420
 # quota_bgec_R3 =   68
 # quota_bgec_R4 =  262
 
-quota_biomass_total = 695
+quota_biomass_total = 0
 quota_biomass_R0 = 0
-quota_biomass_R1 = 145
-quota_biomass_R2 =  260
-quota_biomass_R3 =   60
-quota_biomass_R4 =  230
+quota_biomass_R1 = 0
+quota_biomass_R2 =  0
+quota_biomass_R3 =   0
+quota_biomass_R4 =  0
 
-quota_msw_total = 814
-quota_msw_R0 = 195
-quota_msw_R1 =  190
-quota_msw_R2 =  234
-quota_msw_R3 =  104
-quota_msw_R4 = 91
-######## yes ############################################################'
+quota_msw_total = 0
+quota_msw_R0 = 0
+quota_msw_R1 =  0
+quota_msw_R2 =  0
+quota_msw_R3 =  0
+quota_msw_R4 = 0
+######## test ############################################################'
 
 ######################## model #####################################################
 m = linopy.Model()
