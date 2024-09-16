@@ -8,7 +8,7 @@ from shapely import wkt
 import numpy as np
 
 ###################### Config ################################################################################################
-coarsenscale = 12
+coarsenscale = 1
 lccs_resolution = 300 * coarsenscale #m
 areapergrid = (lccs_resolution/1000) ** 2 ## km2
 scenario_SI = 0  ## Include area where SI >= scenario_SI
@@ -169,116 +169,42 @@ print('mwpergrid_wind = ',mwpergrid_wind)
 print('mwpergrid_solar = ',mwpergrid_solar)
 ###################### Summary ################################################################################################
 
-######## no ############################################################
-# quota_wind_total =  0
-# quota_wind_R0 = 0
-# quota_wind_R1 = 0
-# quota_wind_R2 = 0
-# quota_wind_R3 =  0
-# quota_wind_R4 =  0
-
-# quota_solar_total =  0
-# quota_solar_R0 =  0
-# quota_solar_R1 =  0
-# quota_solar_R2 =  0
-# quota_solar_R3 = 0
-# quota_solar_R4 =  0
-
-# quota_biomass_total = 0
-# quota_biomass_R0 = 0
-# quota_biomass_R1 =  0
-# quota_biomass_R2 =  0
-# quota_biomass_R3 =   0
-# quota_biomass_R4 =  0
-
-# quota_bgec_total = 0
-quota_bgec_R0 = 0
-quota_bgec_R1 =  0
-quota_bgec_R2 =  0
-quota_bgec_R3 =   0
-quota_bgec_R4 =  0
-
-# quota_msw_total = 0
-# quota_msw_R0 = 0
-# quota_msw_R1 =  0
-# quota_msw_R2 =  0
-# quota_msw_R3 =   0
-# quota_msw_R4 =  0
-######## no ############################################################
-
-# # ######## yes ############################################################
-# quota_wind_total =  6345
-# quota_wind_R0 = 0
-# quota_wind_R1 = 0
-# quota_wind_R2 = 6085
-# quota_wind_R3 =  260
-# quota_wind_R4 =  0
-
-# quota_solar_total =  19297.94
-# quota_solar_R0 =  23.33
-# quota_solar_R1 =  1423.36
-# quota_solar_R2 =  5942.28
-# quota_solar_R3 = 5820.02
-# quota_solar_R4 =  6088.94
-
-# quota_bgec_total = 968
-# # quota_bgec_R0 = 0
-# # quota_bgec_R1 =  218
-# # quota_bgec_R2 =  420
-# # quota_bgec_R3 =   68
-# # quota_bgec_R4 =  262
-
-# quota_biomass_total = 695
-# quota_biomass_R0 = 0
-# quota_biomass_R1 = 145
-# quota_biomass_R2 =  260
-# quota_biomass_R3 =   60
-# quota_biomass_R4 =  230
-
-# quota_msw_total = 814
-# quota_msw_R0 = 195
-# quota_msw_R1 =  190
-# quota_msw_R2 =  234
-# quota_msw_R3 =  104
-# quota_msw_R4 = 91
-# ######## yes ############################################################'
-
-# ######## test ############################################################
-quota_wind_total =  0
+####### PDP ############################################################
+quota_wind_total =  6344.8
 quota_wind_R0 = 0
 quota_wind_R1 = 0
-quota_wind_R2 = 0
-quota_wind_R3 =  0
+quota_wind_R2 = 6084.7
+quota_wind_R3 =  260.1
 quota_wind_R4 =  0
 
-quota_solar_total =  10276
-quota_solar_R0 =  0
-quota_solar_R1 =  0
-quota_solar_R2 =  0
-quota_solar_R3 = 0
-quota_solar_R4 =  0
+quota_solar_total =  18129
+quota_solar_R0 =  23.34
+quota_solar_R1 =  3255.36
+quota_solar_R2 =  6072.28
+quota_solar_R3 = 5602.08
+quota_solar_R4 =  3175.94
 
-quota_bgec_total = 0
+# quota_biomass_total = 710.65
+# quota_biomass_R0 = 0
+# quota_biomass_R1 =  148.96
+# quota_biomass_R2 =  260
+# quota_biomass_R3 =   70.70
+# quota_biomass_R4 =  230.99
+
+# quota_bgec_total = 968.49
 # quota_bgec_R0 = 0
-# quota_bgec_R1 =  218
+# quota_bgec_R1 =  21.99
 # quota_bgec_R2 =  420
-# quota_bgec_R3 =   68
+# quota_bgec_R3 =   67.50
 # quota_bgec_R4 =  262
 
-quota_biomass_total = 0
-quota_biomass_R0 = 0
-quota_biomass_R1 = 0
-quota_biomass_R2 =  0
-quota_biomass_R3 =   0
-quota_biomass_R4 =  0
-
-quota_msw_total = 0
-quota_msw_R0 = 0
-quota_msw_R1 =  0
-quota_msw_R2 =  0
-quota_msw_R3 =  0
-quota_msw_R4 = 0
-######## test ############################################################'
+# quota_msw_total = 843.50
+# quota_msw_R0 = 195
+# quota_msw_R1 =  219.52
+# quota_msw_R2 =  233.65
+# quota_msw_R3 =   104.33
+# quota_msw_R4 =  91
+####### PDP ############################################################
 
 ######################## model #####################################################
 m = linopy.Model()
@@ -289,14 +215,14 @@ cap_wind = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_wind')
 built_solar = m.add_variables(binary=True, coords=xr_ref.coords, name='built_solar')
 cap_solar = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_solar')
 
-built_biomass = m.add_variables(binary=True, coords=xr_ref.coords, name='built_biomass')
-cap_biomass = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_biomass')
+# built_biomass = m.add_variables(binary=True, coords=xr_ref.coords, name='built_biomass')
+# cap_biomass = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_biomass')
 
-built_bgec = m.add_variables(binary=True, coords=xr_ref.coords, name='built_bgec')
-cap_bgec = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_bgec')
+# built_bgec = m.add_variables(binary=True, coords=xr_ref.coords, name='built_bgec')
+# cap_bgec = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_bgec')
 
-built_msw = m.add_variables(binary=True, coords=xr_ref.coords, name='built_msw')
-cap_msw = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_msw')
+# built_msw = m.add_variables(binary=True, coords=xr_ref.coords, name='built_msw')
+# cap_msw = m.add_variables(lower=0.00, coords=xr_ref.coords, name='cap_msw')
 
 ############################################ Constraint Building Location Logic ##############################################################################
 constr_built_logic =  m.add_constraints(
@@ -304,12 +230,12 @@ constr_built_logic =  m.add_constraints(
         built_wind
         +
         built_solar
-        +
-        built_biomass.rolling(lat = rollingwindow_biomass,min_periods=1,center=True).sum().rolling(lon = rollingwindow_biomass,min_periods=1,center=True).sum()
-        +
-        built_bgec.rolling(lat = rollingwindow_bgec,min_periods=1,center=True).sum().rolling(lon = rollingwindow_bgec,min_periods=1,center=True).sum()
-        +
-        built_msw.rolling(lat = rollingwindow_msw,min_periods=1,center=True).sum().rolling(lon = rollingwindow_msw,min_periods=1,center=True).sum()
+        # +
+        # built_biomass.rolling(lat = rollingwindow_biomass,min_periods=1,center=True).sum().rolling(lon = rollingwindow_biomass,min_periods=1,center=True).sum()
+        # +
+        # built_bgec.rolling(lat = rollingwindow_bgec,min_periods=1,center=True).sum().rolling(lon = rollingwindow_bgec,min_periods=1,center=True).sum()
+        # +
+        # built_msw.rolling(lat = rollingwindow_msw,min_periods=1,center=True).sum().rolling(lon = rollingwindow_msw,min_periods=1,center=True).sum()
     )
         <= 1
         , name='constr_built_logic'
@@ -343,44 +269,44 @@ constr_builtarea_solar = m.add_constraints(
     ,name = 'constr_builtarea_solar'
 )
 
-constr_maxcap_biomass = m.add_constraints(
-    cap_biomass <= (built_biomass * (xr_ref['A_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum()))
-    ,name = 'constr_maxcap_biomass'
-)
-# constr_mincap_biomass = m.add_constraints(
-#     cap_biomass >= (built_biomass * 1)
-#     ,name = 'constr_mincap_biomass'
+# constr_maxcap_biomass = m.add_constraints(
+#     cap_biomass <= (built_biomass * (xr_ref['A_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum()))
+#     ,name = 'constr_maxcap_biomass'
 # )
-constr_builtarea_biomass = m.add_constraints(
-    built_biomass <= (xr_ref['AVA_Biomass'] * 10000)
-    ,name = 'constr_builtarea_biomass'
-)
+# # constr_mincap_biomass = m.add_constraints(
+# #     cap_biomass >= (built_biomass * 1)
+# #     ,name = 'constr_mincap_biomass'
+# # )
+# constr_builtarea_biomass = m.add_constraints(
+#     built_biomass <= (xr_ref['AVA_Biomass'] * 10000)
+#     ,name = 'constr_builtarea_biomass'
+# )
 
-constr_maxcap_bgec = m.add_constraints(
-    cap_bgec <= (built_bgec * (xr_ref['A_BGEC'].rolling(lon = rollingwindow_bgec, lat = rollingwindow_bgec, min_periods=1,center=True).sum()))
-    ,name = 'constr_maxcap_bgec'
-)
-# constr_mincap_bgec = m.add_constraints(
-#     cap_bgec >= (built_bgec * 1)
-#     ,name = 'constr_mincap_bgec'
+# constr_maxcap_bgec = m.add_constraints(
+#     cap_bgec <= (built_bgec * (xr_ref['A_BGEC'].rolling(lon = rollingwindow_bgec, lat = rollingwindow_bgec, min_periods=1,center=True).sum()))
+#     ,name = 'constr_maxcap_bgec'
 # )
-constr_builtarea_bgec = m.add_constraints(
-    built_bgec <= (xr_ref['AVA_BGEC'] * 10000)
-    ,name = 'constr_builtarea_bgec'
-)
+# # constr_mincap_bgec = m.add_constraints(
+# #     cap_bgec >= (built_bgec * 1)
+# #     ,name = 'constr_mincap_bgec'
+# # )
+# constr_builtarea_bgec = m.add_constraints(
+#     built_bgec <= (xr_ref['AVA_BGEC'] * 10000)
+#     ,name = 'constr_builtarea_bgec'
+# )
 
-constr_maxcap_msw = m.add_constraints(
-    cap_msw <= ((built_msw) * (xr_ref['A_MSW'].rolling(lon = rollingwindow_msw, lat = rollingwindow_msw, min_periods=1,center=True).sum()))
-    ,name = 'constr_maxcap_msw'
-)
-# constr_mincap_msw = m.add_constraints(
-#     cap_msw >= ((built_msw) * 1)
-#     ,name = 'constr_mincap_msw'
+# constr_maxcap_msw = m.add_constraints(
+#     cap_msw <= ((built_msw) * (xr_ref['A_MSW'].rolling(lon = rollingwindow_msw, lat = rollingwindow_msw, min_periods=1,center=True).sum()))
+#     ,name = 'constr_maxcap_msw'
 # )
-constr_builtarea_msw = m.add_constraints(
-    built_msw <= (xr_ref['AVA_MSW'] * 10000)
-    ,name = 'constr_builtarea_msw'
-)
+# # constr_mincap_msw = m.add_constraints(
+# #     cap_msw >= ((built_msw) * 1)
+# #     ,name = 'constr_mincap_msw'
+# # )
+# constr_builtarea_msw = m.add_constraints(
+#     built_msw <= (xr_ref['AVA_MSW'] * 10000)
+#     ,name = 'constr_builtarea_msw'
+# )
 ############################################ Constraint Capacity ##############################################################################
 
 ###########################################################################################################################################################
@@ -423,60 +349,60 @@ constr_quota_solar_r4 = m.add_constraints(lhs = (cap_solar).where((xr_ref['regio
 
 ###########################################################################################################################################################
 
-constr_quota_biomass = m.add_constraints((cap_biomass.sum()) == quota_biomass_total, name='constr_quota_biomass')
+# constr_quota_biomass = m.add_constraints((cap_biomass.sum()) == quota_biomass_total, name='constr_quota_biomass')
 
-constr_quota_biomass_r0 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R0'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_biomass_R0, name='constr_quota_biomass_r0')
+# constr_quota_biomass_r0 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R0'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_biomass_R0, name='constr_quota_biomass_r0')
 
-constr_quota_biomass_r1 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R1'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_biomass_R1, name='constr_quota_biomass_r1')
+# constr_quota_biomass_r1 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R1'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_biomass_R1, name='constr_quota_biomass_r1')
 
-constr_quota_biomass_r2 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R2'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_biomass_R2, name='constr_quota_biomass_r2')
+# constr_quota_biomass_r2 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R2'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_biomass_R2, name='constr_quota_biomass_r2')
 
-constr_quota_biomass_r3 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R3'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_biomass_R3, name='constr_quota_biomass_r3')
+# constr_quota_biomass_r3 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R3'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_biomass_R3, name='constr_quota_biomass_r3')
 
-constr_quota_biomass_r4 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R4'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_biomass_R4, name='constr_quota_biomass_r4')
-
-##########################################################################################################################################################
-
-constr_quota_bgec = m.add_constraints((cap_bgec.sum()) == quota_bgec_total, name='constr_quota_bgec')
-
-constr_quota_bgec_r0 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R0'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_bgec_R0, name='constr_quota_bgec_r0')
-
-constr_quota_bgec_r1 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R1'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_bgec_R1, name='constr_quota_bgec_r1')
-
-constr_quota_bgec_r2 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R2'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_bgec_R2, name='constr_quota_bgec_r2')
-
-constr_quota_bgec_r3 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R3'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_bgec_R3, name='constr_quota_bgec_r3')
-
-constr_quota_bgec_r4 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R4'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_bgec_R4, name='constr_quota_bgec_r4')
+# constr_quota_biomass_r4 = m.add_constraints(lhs = (cap_biomass).where((xr_ref['region'] == 'R4'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_biomass_R4, name='constr_quota_biomass_r4')
 
 ##########################################################################################################################################################
 
-constr_quota_msw = m.add_constraints((cap_msw.sum()) == quota_msw_total, name='constr_quota_msw')
+# constr_quota_bgec = m.add_constraints((cap_bgec.sum()) == quota_bgec_total, name='constr_quota_bgec')
 
-constr_quota_msw_r0 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R0'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_msw_R0, name='constr_quota_msw_r0')
+# constr_quota_bgec_r0 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R0'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_bgec_R0, name='constr_quota_bgec_r0')
 
-constr_quota_msw_r1 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R1'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_msw_R1, name='constr_quota_msw_r1')
+# constr_quota_bgec_r1 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R1'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_bgec_R1, name='constr_quota_bgec_r1')
 
-constr_quota_msw_r2 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R2'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_msw_R2, name='constr_quota_msw_r2')
+# constr_quota_bgec_r2 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R2'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_bgec_R2, name='constr_quota_bgec_r2')
 
-constr_quota_msw_r3 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R3'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_msw_R3, name='constr_quota_msw_r3')
+# constr_quota_bgec_r3 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R3'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_bgec_R3, name='constr_quota_bgec_r3')
 
-constr_quota_msw_r4 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R4'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_msw_R4, name='constr_quota_msw_r4')
+# constr_quota_bgec_r4 = m.add_constraints(lhs = (cap_bgec).where((xr_ref['region'] == 'R4'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_bgec_R4, name='constr_quota_bgec_r4')
+
+##########################################################################################################################################################
+
+# constr_quota_msw = m.add_constraints((cap_msw.sum()) == quota_msw_total, name='constr_quota_msw')
+
+# constr_quota_msw_r0 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R0'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_msw_R0, name='constr_quota_msw_r0')
+
+# constr_quota_msw_r1 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R1'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_msw_R1, name='constr_quota_msw_r1')
+
+# constr_quota_msw_r2 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R2'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_msw_R2, name='constr_quota_msw_r2')
+
+# constr_quota_msw_r3 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R3'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_msw_R3, name='constr_quota_msw_r3')
+
+# constr_quota_msw_r4 = m.add_constraints(lhs = (cap_msw).where((xr_ref['region'] == 'R4'),drop=True).sum()
+#                                              , sign = '>=' , rhs = quota_msw_R4, name='constr_quota_msw_r4')
 
 ##########################################################################################################################################################
 
@@ -486,21 +412,21 @@ obj = (-1000) * (
     ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
     +
     ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
-    +
-    ( 
-        xr_ref['SI_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum() 
-        * (cap_biomass / maxcap_biomass)
-     )
-    +
-    ( 
-        xr_ref['SI_BGEC'].rolling(lon = rollingwindow_bgec, lat = rollingwindow_bgec, min_periods=1,center=True).sum() 
-        * (cap_bgec / maxcap_bgec)
-     )
-    +
-    ( 
-        xr_ref['SI_MSW'].rolling(lon = rollingwindow_msw, lat = rollingwindow_msw, min_periods=1,center=True).sum() 
-        * (cap_msw / maxcap_msw)
-     )
+#     +
+#     ( 
+#         xr_ref['SI_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum() 
+#         * (cap_biomass / maxcap_biomass)
+#      )
+#     +
+#     ( 
+#         xr_ref['SI_BGEC'].rolling(lon = rollingwindow_bgec, lat = rollingwindow_bgec, min_periods=1,center=True).sum() 
+#         * (cap_bgec / maxcap_bgec)
+#      )
+#     +
+#     ( 
+#         xr_ref['SI_MSW'].rolling(lon = rollingwindow_msw, lat = rollingwindow_msw, min_periods=1,center=True).sum() 
+#         * (cap_msw / maxcap_msw)
+#      )
 )
 
 m.add_objective(obj)
@@ -520,10 +446,10 @@ print(solution)
 
 xr_ref['cap_wind'] = np.round(solution['cap_wind'] * solution['built_wind'],1)
 xr_ref['cap_solar'] = np.round(solution['cap_solar'] * solution['built_solar'],1)
-xr_ref['cap_biomass'] = np.round(solution['cap_biomass'] * solution['built_biomass'],1)
-xr_ref['cap_bgec'] = np.round(solution['cap_bgec'] * solution['built_bgec'],1)
-xr_ref['cap_msw'] = np.round(solution['cap_msw'] * solution['built_msw'],1)
-xr_ref['cap_solar'] = np.round(solution['cap_solar'] * solution['built_solar'],1)
+# xr_ref['cap_biomass'] = np.round(solution['cap_biomass'] * solution['built_biomass'],1)
+# xr_ref['cap_bgec'] = np.round(solution['cap_bgec'] * solution['built_bgec'],1)
+# xr_ref['cap_msw'] = np.round(solution['cap_msw'] * solution['built_msw'],1)
+# xr_ref['cap_solar'] = np.round(solution['cap_solar'] * solution['built_solar'],1)
 
 
 print("cap_wind = ",xr_ref['cap_wind'].sum())
@@ -540,26 +466,26 @@ print("  R2 cap_solar = ",xr_ref['cap_solar'].where(xr_ref['region'] == 'R2').su
 print("  R3 cap_solar = ",xr_ref['cap_solar'].where(xr_ref['region'] == 'R3').sum())
 print("  R4 cap_solar = ",xr_ref['cap_solar'].where(xr_ref['region'] == 'R4').sum())
 
-print("cap_biomass = ",xr_ref['cap_biomass'].sum())
-print("  R0 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R0').sum())
-print("  R1 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R1').sum())
-print("  R2 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R2').sum())
-print("  R3 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R3').sum())
-print("  R4 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R4').sum())
+# print("cap_biomass = ",xr_ref['cap_biomass'].sum())
+# print("  R0 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R0').sum())
+# print("  R1 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R1').sum())
+# print("  R2 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R2').sum())
+# print("  R3 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R3').sum())
+# print("  R4 cap_biomass = ",xr_ref['cap_biomass'].where(xr_ref['region'] == 'R4').sum())
 
-print("cap_bgec = ",xr_ref['cap_bgec'].sum())
-print("  R0 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R0').sum())
-print("  R1 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R1').sum())
-print("  R2 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R2').sum())
-print("  R3 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R3').sum())
-print("  R4 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R4').sum())
+# print("cap_bgec = ",xr_ref['cap_bgec'].sum())
+# print("  R0 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R0').sum())
+# print("  R1 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R1').sum())
+# print("  R2 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R2').sum())
+# print("  R3 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R3').sum())
+# print("  R4 cap_bgec = ",xr_ref['cap_bgec'].where(xr_ref['region'] == 'R4').sum())
 
-print("cap_msw = ",xr_ref['cap_msw'].sum())
-print("  R0 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R0').sum())
-print("  R1 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R1').sum())
-print("  R2 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R2').sum())
-print("  R3 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R3').sum())
-print("  R4 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R4').sum())
+# print("cap_msw = ",xr_ref['cap_msw'].sum())
+# print("  R0 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R0').sum())
+# print("  R1 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R1').sum())
+# print("  R2 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R2').sum())
+# print("  R3 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R3').sum())
+# print("  R4 cap_msw = ",xr_ref['cap_msw'].where(xr_ref['region'] == 'R4').sum())
 
 print(xr_ref.data_vars)
-xr_ref.to_netcdf(path='Output\\xr_output_all_scenario_SI_' + str(scenario_SI) + '_.nc')
+xr_ref.to_netcdf(path='Output\\xr_output_all_SSI_' + str(scenario_SI) + "_CS_"+str(coarsenscale)+ '_.nc')
