@@ -282,8 +282,7 @@ print("  R4 cap_solar = ",xr_ref['cap_solar'].where(xr_ref['region'] == 'R4').su
 
 
 print(xr_ref.data_vars)
-xr_ref.to_netcdf(path='Output\\xr_output_scenario_SI_' + str(scenario_SI) + '_.nc')
-
+xr_ref.to_netcdf(path='Output\\xr_output_SSI_' + str(scenario_SI) + "_CS_"+str(coarsenscale)+ '_.nc')
 
 
 
