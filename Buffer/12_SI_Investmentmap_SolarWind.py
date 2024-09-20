@@ -137,19 +137,20 @@ print('mwpergrid_solar = ',mwpergrid_solar)
 # ####### no ############################################################
 
 ######## yes ############################################################
-quota_wind_total =  6345
 quota_wind_R0 = 0
 quota_wind_R1 = 0
-quota_wind_R2 = 6085
-quota_wind_R3 =  260
+quota_wind_R2 = 6100 #6084.7
+quota_wind_R3 =  300 #260.1
 quota_wind_R4 =  0
+quota_wind_total = quota_wind_R0 +  quota_wind_R1 + quota_wind_R2 + quota_wind_R3 + quota_wind_R4 #6344.8
 
-quota_solar_total =  19297.94
-quota_solar_R0 =  23.33
-quota_solar_R1 =  1423.36
-quota_solar_R2 =  5942.28
-quota_solar_R3 = 5820.02
-quota_solar_R4 =  6088.94
+quota_solar_R0 =  50 #23.34
+quota_solar_R1 =  3300 #3255.36
+quota_solar_R2 =  6100 #6072.28
+quota_solar_R3 = 5650 #5602.08
+quota_solar_R4 =  3200 #3175.94
+quota_solar_total =  quota_solar_R0 + quota_solar_R1 + quota_solar_R2 + quota_solar_R3 + quota_solar_R4 #18129
+
 ######## yes ############################################################
 
 ######################## model #####################################################
