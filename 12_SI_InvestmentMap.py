@@ -425,6 +425,10 @@ obj = (-10000) * (
     +
     ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
     # +
+    # ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
+    # +
+    # ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
+    # +
     # ( 
     #     xr_ref['SI_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum() 
     #     * (cap_biomass / maxcap_biomass)
