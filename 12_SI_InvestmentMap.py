@@ -421,9 +421,9 @@ constr_quota_solar_r4 = m.add_constraints(lhs = (cap_solar).where((xr_ref['regio
 ###################### Objective function ################################################################################################
 obj = (-10000) * (
 
-    ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
+    ( xr_ref['SI_Wind'].where(xr_ref['AVA_Wind'] > 0) * (cap_wind  / (xr_ref['AVA_Wind'].where(xr_ref['AVA_Wind'] > 0) * mwperkm2_wind)) )
     +
-    ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
+    ( xr_ref['SI_Solar'].where(xr_ref['AVA_Solar'] > 0) * (cap_solar / (xr_ref['AVA_Solar'].where(xr_ref['AVA_Solar'] > 0) * mwperkm2_solar)) )
     # +
     # ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
     # +
