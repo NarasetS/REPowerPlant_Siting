@@ -323,41 +323,41 @@ constr_builtarea_solar = m.add_constraints(
 
 ###########################################################################################################################################################
 
-constr_quota_wind = m.add_constraints((cap_wind.sum()) >= quota_wind_total , name='constr_quota_wind')
+constr_quota_wind = m.add_constraints((cap_wind.sum()) == quota_wind_total , name='constr_quota_wind')
 
 constr_quota_wind_r0 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R0'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_wind_R0, name='constr_quota_wind_r0')
+                                             , sign = '==' , rhs = quota_wind_R0, name='constr_quota_wind_r0')
 
 constr_quota_wind_r1 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R1'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_wind_R1, name='constr_quota_wind_r1')
+                                             , sign = '==' , rhs = quota_wind_R1, name='constr_quota_wind_r1')
 
 constr_quota_wind_r2 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R2'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_wind_R2, name='constr_quota_wind_r2')
+                                             , sign = '==' , rhs = quota_wind_R2, name='constr_quota_wind_r2')
 
 constr_quota_wind_r3 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R3'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_wind_R3, name='constr_quota_wind_r3')
+                                             , sign = '==' , rhs = quota_wind_R3, name='constr_quota_wind_r3')
 
 constr_quota_wind_r4 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R4'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_wind_R4, name='constr_quota_wind_r4')
+                                             , sign = '==' , rhs = quota_wind_R4, name='constr_quota_wind_r4')
 
 ############################################################################################################################################################
 
-constr_quota_solar = m.add_constraints((cap_solar.sum()) >= quota_solar_total, name='constr_quota_solar')
+constr_quota_solar = m.add_constraints((cap_solar.sum()) == quota_solar_total, name='constr_quota_solar')
 
 constr_quota_solar_r0 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R0'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_solar_R0, name='constr_quota_solar_r0')
+                                             , sign = '==' , rhs = quota_solar_R0, name='constr_quota_solar_r0')
 
 constr_quota_solar_r1 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R1'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_solar_R1, name='constr_quota_solar_r1')
+                                             , sign = '==' , rhs = quota_solar_R1, name='constr_quota_solar_r1')
 
 constr_quota_solar_r2 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R2'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_solar_R2, name='constr_quota_solar_r2')
+                                             , sign = '==' , rhs = quota_solar_R2, name='constr_quota_solar_r2')
 
 constr_quota_solar_r3 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R3'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_solar_R3, name='constr_quota_solar_r3')
+                                             , sign = '==' , rhs = quota_solar_R3, name='constr_quota_solar_r3')
 
 constr_quota_solar_r4 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R4'),drop=True).sum()
-                                             , sign = '>=' , rhs = quota_solar_R4, name='constr_quota_solar_r4')
+                                             , sign = '==' , rhs = quota_solar_R4, name='constr_quota_solar_r4')
 
 ###########################################################################################################################################################
 
