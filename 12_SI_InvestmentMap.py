@@ -8,7 +8,7 @@ from shapely import wkt
 import numpy as np
 
 ###################### Config ################################################################################################
-coarsenscale = 3
+coarsenscale = 5
 lccs_resolution = 300 * coarsenscale #m
 areapergrid = (lccs_resolution/1000) ** 2 ## km2
 scenario_SI = 0  ## Include area where SI >= scenario_SI
@@ -323,7 +323,7 @@ constr_builtarea_solar = m.add_constraints(
 
 ###########################################################################################################################################################
 
-constr_quota_wind = m.add_constraints((cap_wind.sum()) == quota_wind_total , name='constr_quota_wind')
+constr_quota_wind = m.add_constraints((cap_wind.sum()) >= quota_wind_total , name='constr_quota_wind')
 
 constr_quota_wind_r0 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'] == 'R0'),drop=True).sum()
                                              , sign = '>=' , rhs = quota_wind_R0, name='constr_quota_wind_r0')
@@ -342,7 +342,7 @@ constr_quota_wind_r4 = m.add_constraints(lhs = (cap_wind).where((xr_ref['region'
 
 ############################################################################################################################################################
 
-constr_quota_solar = m.add_constraints((cap_solar.sum()) == quota_solar_total, name='constr_quota_solar')
+constr_quota_solar = m.add_constraints((cap_solar.sum()) >= quota_solar_total, name='constr_quota_solar')
 
 constr_quota_solar_r0 = m.add_constraints(lhs = (cap_solar).where((xr_ref['region'] == 'R0'),drop=True).sum()
                                              , sign = '>=' , rhs = quota_solar_R0, name='constr_quota_solar_r0')
@@ -424,10 +424,10 @@ obj = (-10000) * (
     ( xr_ref['SI_Wind'].where(xr_ref['AVA_Wind'] > 0) * (cap_wind  / (xr_ref['AVA_Wind'].where(xr_ref['AVA_Wind'] > 0) * mwperkm2_wind)) )
     +
     ( xr_ref['SI_Solar'].where(xr_ref['AVA_Solar'] > 0) * (cap_solar / (xr_ref['AVA_Solar'].where(xr_ref['AVA_Solar'] > 0) * mwperkm2_solar)) )
-    +
-    ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
-    +
-    ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
+    # +
+    # ( xr_ref['SI_Wind'] * (cap_wind  / mwpergrid_wind))
+    # +
+    # ( xr_ref['SI_Solar'] * (cap_solar / mwpergrid_solar))
     # +
     # ( 
     #     xr_ref['SI_Biomass'].rolling(lon = rollingwindow_biomass, lat = rollingwindow_biomass, min_periods=1,center=True).sum() 
